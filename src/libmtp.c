@@ -2098,17 +2098,6 @@ LIBMTP_mtpdevice_t *LIBMTP_Open_Raw_Device_Uncached(LIBMTP_raw_device_t *rawdevi
     mtp_device->storage = NULL;
   }
 
-
-  return mtp_device;
-}
-
-LIBMTP_mtpdevice_t *LIBMTP_Open_Raw_Device(LIBMTP_raw_device_t *rawdevice)
-{
-  LIBMTP_mtpdevice_t *mtp_device = LIBMTP_Open_Raw_Device_Uncached(rawdevice);
-
-  if (mtp_device == NULL)
-    return NULL;
-
   /* Check for MTPZ devices. */
   if (use_mtpz) {
     LIBMTP_device_extension_t *tmpext = mtp_device->extensions;
@@ -2126,6 +2115,17 @@ LIBMTP_mtpdevice_t *LIBMTP_Open_Raw_Device(LIBMTP_raw_device_t *rawdevice)
       tmpext = tmpext->next;
     }
   }
+
+
+  return mtp_device;
+}
+
+LIBMTP_mtpdevice_t *LIBMTP_Open_Raw_Device(LIBMTP_raw_device_t *rawdevice)
+{
+  LIBMTP_mtpdevice_t *mtp_device = LIBMTP_Open_Raw_Device_Uncached(rawdevice);
+
+  if (mtp_device == NULL)
+    return NULL;
 
   // Set up this device as cached
   mtp_device->cached = 1;
